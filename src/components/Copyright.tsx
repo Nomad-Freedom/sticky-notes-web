@@ -6,7 +6,7 @@ export default function Copyright() {
   return (
     <Box
       component="footer"
-      sx={{ position: "fixed", bottom: "0", width: "100%" }}
+      sx={{ position: "fixed", bottom: "0", left: "0", width: "100%" }}
     >
       <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
