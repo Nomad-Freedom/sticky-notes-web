@@ -3,7 +3,6 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Link from "../src/components/Link";
-import ProTip from "../src/components/ProTip";
 
 const About: NextPage = () => {
   return (
@@ -24,7 +23,6 @@ const About: NextPage = () => {
             Go to the home page
           </Button>
         </Box>
-        <ProTip />
       </Box>
     </>
   );
