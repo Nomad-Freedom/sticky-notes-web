@@ -1,20 +1,26 @@
 import type { NextPage } from "next";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import Link from "../src/components/Link";
 import { useGetNotes } from "../src/hooks/useGetNotes";
 import Note from "../src/components/Note";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
   const { data, isError, error } = useGetNotes();
-  console.log(data);
+  const router = useRouter();
+  function handleNoteClick(id: string): void {
+    router.push(`/${id}`);
+  }
   return (
     <>
       <Grid container columnSpacing={2} rowSpacing={2}>
         {data?.map((note) => (
           <Grid item xs={12} sm={6} md={4} key={note.id}>
-            <Note data={note} />
+            <Box
+              sx={{ cursor: "pointer", userSelect: "none" }}
+              onClick={() => handleNoteClick(note.id)}
+            >
+              <Note data={note} />
+            </Box>
           </Grid>
         ))}
       </Grid>
