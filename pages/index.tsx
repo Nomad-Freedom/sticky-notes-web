@@ -3,28 +3,21 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Link from "../src/components/Link";
 import { useGetNotes } from "../src/hooks/useGetNotes";
+import Note from "../src/components/Note";
+import { Grid } from "@mui/material";
 
 const Home: NextPage = () => {
   const { data, isError, error } = useGetNotes();
   console.log(data);
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h4" component="h1" gutterBottom>
-          MUI v5 + Next.js with TypeScript example
-        </Typography>
-
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-      </Box>
+      <Grid container columnSpacing={2} rowSpacing={2}>
+        {data?.map((note) => (
+          <Grid item xs={12} sm={6} md={4} key={note.id}>
+            <Note data={note} />
+          </Grid>
+        ))}
+      </Grid>
     </>
   );
 };

@@ -9,7 +9,7 @@ export default function () {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ boxShadow: "none" }}>
-        <Toolbar>
+        <Toolbar disableGutters>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Sticky Notes
           </Typography>

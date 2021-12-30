@@ -9,7 +9,7 @@ interface Props {
 
 function Layout({ children }: Props) {
   return (
-    <Container maxWidth="lg" disableGutters={true}>
+    <Container maxWidth="lg" disableGutters={false}>
       <Nav />
       {children}
       <Copyright />
