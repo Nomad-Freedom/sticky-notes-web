@@ -1,9 +1,7 @@
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import React from "react";
+
 import { Note } from "../interfaces";
 import {
   getTime,
@@ -11,6 +9,7 @@ import {
   isYesterday,
   getDateAndTime,
 } from "../utils/dateTime";
+import Box from "@mui/material/Box";
 
 interface NoteProps {
   data: Note;
@@ -24,8 +23,9 @@ function Note({
   const otherDay = today === false && yesterday === false;
 
   return (
-    <Card sx={{ width: "100%", backgroundColor: `${color}` }}>
-      <CardContent>
+    <Card sx={{ width: "100%", backgroundColor: `${color}.main` }}>
+      <Box sx={{ height: "0.75rem", backgroundColor: `${color}.dark` }}></Box>
+      <CardContent sx={{ paddingTop: "0.5rem" }}>
         {today && (
           <Typography align="right" variant="caption" component={"p"}>
             today @ {getTime(created_at)}
