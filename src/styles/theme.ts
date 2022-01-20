@@ -13,7 +13,7 @@ declare module "@mui/material/styles" {
   interface PaletteOptions {
     one?: CardItem;
     two?: CardItem;
-    third?: CardItem;
+    three?: CardItem;
     four?: CardItem;
     five?: CardItem;
   }
@@ -40,7 +40,7 @@ const theme = createTheme({
       main: "#F7EDE2",
       dark: "#c4bcb4",
     },
-    third: {
+    three: {
       main: "#F5CAC3",
       dark: "#f5a193",
     },
