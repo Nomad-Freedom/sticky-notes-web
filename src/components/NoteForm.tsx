@@ -1,6 +1,6 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { Note } from "../interfaces";
+import { Note, UpdatedNote } from "../interfaces";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
@@ -9,10 +9,14 @@ import TextField from "@mui/material/TextField";
 import { Box } from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { updateNote } from "../utils/api";
+import { useUpdateNote } from "../hooks/useUpdateNote";
+import { UseMutateFunction } from "react-query";
 
 interface NoteFormProps {
   data: Note;
   handleDelete: () => void;
+  handleSave: (note: UpdatedNote) => void;
 }
 
 interface IFormInput {
@@ -24,12 +28,14 @@ interface IFormInput {
 function NoteForm({
   data: { title, description, id, color },
   handleDelete,
+  handleSave,
 }: NoteFormProps) {
   const { control, handleSubmit, watch } = useForm<IFormInput>();
   const newColor = watch("color");
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
+    handleSave(data);
   };
   return (
     <Card sx={{ width: "100%", backgroundColor: `${newColor || color}.main` }}>

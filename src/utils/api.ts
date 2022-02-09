@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Note } from "../interfaces";
+import { UpdatedNote, Note } from "../interfaces";
 
 const api = axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL });
 
@@ -9,6 +9,10 @@ export function getNotes(): Promise<Note[]> {
 
 export function getNote(id: string): Promise<Note> {
   return api.get<Note>(`/notes/${id}`).then((res) => res.data);
+}
+
+export function updateNote(id: string, data: UpdatedNote): Promise<Note> {
+  return api.patch<Note>(`/notes/${id}`, data).then((res) => res.data);
 }
 
 export function DeleteNote(id: string) {
