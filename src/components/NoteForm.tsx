@@ -1,6 +1,6 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { Note, UpdatedNote } from "../interfaces";
+import { CreatedNote, Note, UpdatedNote } from "../interfaces";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
@@ -12,10 +12,12 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { updateNote } from "../utils/api";
 import { useUpdateNote } from "../hooks/useUpdateNote";
 import { UseMutateFunction } from "react-query";
+import { useRouter } from "next/router";
 
 interface NoteFormProps {
-  data: Note;
-  handleDelete: () => void;
+  data: Note | CreatedNote;
+  handleDelete?: () => void;
+  handleClose?: boolean;
   handleSave: (note: UpdatedNote) => void;
 }
 
@@ -26,15 +28,16 @@ interface IFormInput {
 }
 
 function NoteForm({
-  data: { title, description, id, color },
+  data: { title, description, color },
   handleDelete,
   handleSave,
+  handleClose,
 }: NoteFormProps) {
   const { control, handleSubmit, watch } = useForm<IFormInput>();
   const newColor = watch("color");
+  const { push } = useRouter();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
     handleSave(data);
   };
   return (
@@ -48,15 +51,28 @@ function NoteForm({
             justifyContent: "space-between",
           }}
         >
-          <IconButton
-            size="medium"
-            edge="start"
-            color="inherit"
-            aria-label="delete note"
-            onClick={handleDelete}
-          >
-            <DeleteIcon fontSize="small" />
-          </IconButton>
+          {handleDelete && (
+            <IconButton
+              size="medium"
+              edge="start"
+              color="inherit"
+              aria-label="delete note"
+              onClick={handleDelete}
+            >
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          )}
+          {handleClose && (
+            <IconButton
+              size="medium"
+              edge="start"
+              color="inherit"
+              aria-label="delete note"
+              onClick={() => push("/")}
+            >
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          )}
           <IconButton
             size="medium"
             edge="end"

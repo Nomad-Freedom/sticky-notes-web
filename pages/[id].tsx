@@ -1,6 +1,4 @@
 import type { NextPage } from "next";
-import Note from "../src/components/Note";
-import { Grid } from "@mui/material";
 import { useRouter } from "next/router";
 import { useGetNote } from "../src/hooks/useGetNote";
 import NoteForm from "../src/components/NoteForm";
@@ -11,7 +9,6 @@ import { UpdatedNote } from "../src/interfaces";
 const NotePage: NextPage = () => {
   const {
     query: { id },
-    push,
   } = useRouter();
   const { mutate: deleteNote } = useDeleteNote(id as string);
   const { mutate: updateNote } = useUpdateNote(id as string);
@@ -19,12 +16,10 @@ const NotePage: NextPage = () => {
 
   const handleDelete = () => {
     deleteNote();
-    push("/");
   };
 
   const handleUpdate = (note: UpdatedNote) => {
     updateNote(note);
-    push("/");
   };
 
   return (

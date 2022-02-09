@@ -27,6 +27,7 @@ export default function () {
             color="inherit"
             aria-label="add note"
             sx={{ marginLeft: "auto" }}
+            onClick={() => push("/create")}
           >
             <AddIcon />
           </IconButton>

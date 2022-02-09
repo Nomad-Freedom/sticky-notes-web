@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "react-query";
-import { UpdatedNote } from "../interfaces";
-import { updateNote } from "../utils/api";
+import { CreatedNote } from "../interfaces";
+import { createNote } from "../utils/api";
 import { useRouter } from "next/router";
 
-export const useUpdateNote = (id: string) => {
+export const useCreateNote = () => {
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  return useMutation((data: UpdatedNote) => updateNote(id, data), {
+  return useMutation((data: CreatedNote) => createNote(data), {
     onSuccess: (data) => {
       queryClient.invalidateQueries("notes");
-      queryClient.setQueryData(["note", id], data);
+      queryClient.setQueryData(["note", data.id], data);
       push("/");
     },
   });
