@@ -9,10 +9,9 @@ import TextField from "@mui/material/TextField";
 import { Box } from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { updateNote } from "../utils/api";
-import { useUpdateNote } from "../hooks/useUpdateNote";
-import { UseMutateFunction } from "react-query";
 import { useRouter } from "next/router";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 interface NoteFormProps {
   data: Note | CreatedNote;
@@ -27,13 +26,28 @@ interface IFormInput {
   color: string;
 }
 
+const schema = yup
+  .object({
+    title: yup.string().required(),
+    description: yup.string().required(),
+    color: yup.string().required(),
+  })
+  .required();
+
 function NoteForm({
   data: { title, description, color },
   handleDelete,
   handleSave,
   handleClose,
 }: NoteFormProps) {
-  const { control, handleSubmit, watch } = useForm<IFormInput>();
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IFormInput>({
+    resolver: yupResolver(schema),
+  });
   const newColor = watch("color");
   const { push } = useRouter();
 
@@ -91,7 +105,8 @@ function NoteForm({
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Title"
+                label={errors.title?.message ? errors.title.message : "Title"}
+                error={errors.title?.message ? true : false}
                 variant="filled"
                 fullWidth={true}
                 sx={{ marginBottom: "1rem" }}
@@ -106,7 +121,12 @@ function NoteForm({
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Description"
+                error={errors.description?.message ? true : false}
+                label={
+                  errors.description?.message
+                    ? errors.description.message
+                    : "Description"
+                }
                 multiline={true}
                 variant="filled"
                 fullWidth={true}
