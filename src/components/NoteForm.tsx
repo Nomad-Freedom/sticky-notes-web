@@ -4,6 +4,7 @@ import { CreatedNote, Note, UpdatedNote } from "../interfaces";
 import IconButton from "@mui/material/IconButton";
 import SendIcon from "@mui/icons-material/Send";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import TextField from "@mui/material/TextField";
 import { Box } from "@mui/material";
@@ -29,7 +30,7 @@ interface IFormInput {
 const schema = yup
   .object({
     title: yup.string().required(),
-    description: yup.string().required(),
+    description: yup.string().required().max(600),
     color: yup.string().required(),
   })
   .required();
@@ -84,7 +85,7 @@ function NoteForm({
               aria-label="delete note"
               onClick={() => push("/")}
             >
-              <DeleteIcon fontSize="small" />
+              <CloseIcon fontSize="small" />
             </IconButton>
           )}
           <IconButton

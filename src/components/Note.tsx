@@ -54,7 +54,13 @@ function Note({
           {title}
         </Typography>
 
-        <Typography variant="body2">{description}</Typography>
+        <Typography
+          sx={{ whiteSpace: "pre-wrap", wordWrap: "break-word" }}
+          variant="body2"
+          component={"pre"}
+        >
+          {description}
+        </Typography>
       </CardContent>
     </Card>
   );

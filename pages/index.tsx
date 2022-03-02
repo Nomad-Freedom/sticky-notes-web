@@ -14,9 +14,23 @@ const Home: NextPage = () => {
     <>
       <Grid container columnSpacing={2} rowSpacing={2}>
         {data?.map((note) => (
-          <Grid item xs={12} sm={6} md={4} key={note.id}>
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={4}
+            key={note.id}
+            sx={{
+              display: "flex",
+            }}
+          >
             <Box
-              sx={{ cursor: "pointer", userSelect: "none" }}
+              sx={{
+                cursor: "pointer",
+                display: "flex",
+                width: "100%",
+                userSelect: "none",
+              }}
               onClick={() => handleNoteClick(note.id)}
             >
               <Note data={note} />
