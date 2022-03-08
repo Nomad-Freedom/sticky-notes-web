@@ -4,16 +4,14 @@ import { Box } from "@mui/system";
 
 export default function Copyright() {
   return (
-    <Box
-      component="footer"
-      sx={{ position: "fixed", bottom: "0", left: "0", width: "100%" }}
-    >
+    <Box component="footer" sx={{ marginTop: 2 }}>
       <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
+        {new Date().getFullYear()}
+        {" by "}
         <MuiLink color="inherit" href="https://mui.com/">
-          Your Website
-        </MuiLink>{" "}
-        {new Date().getFullYear()}.
+          Benny Hernandez
+        </MuiLink>
       </Typography>
     </Box>
   );
