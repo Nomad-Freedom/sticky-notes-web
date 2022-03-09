@@ -1,14 +1,35 @@
 import type { NextPage } from "next";
 import { useGetNotes } from "../src/hooks/useGetNotes";
 import Note from "../src/components/Note";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
-  const { data, isError, error } = useGetNotes();
+  const { data, isError, isLoading } = useGetNotes();
   const router = useRouter();
   function handleNoteClick(id: string): void {
     router.push(`/${id}`);
+  }
+
+  if (isLoading) {
+    return (
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <CircularProgress color="secondary" />
+      </Box>
+    );
+  }
+  if (isError) {
+    return (
+      <Box>
+        <Typography color={"#ff0000"} align={"center"}>
+          There was a server error sorry for the inconvenience.
+        </Typography>
+      </Box>
+    );
   }
   return (
     <>
